@@ -12,178 +12,234 @@
         }
 
         body {
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            /* 升级为更梦幻的渐变色 */
+            background: linear-gradient(125deg, #fff1eb 0%, #ace0f9 100%);
             min-height: 100vh;
             overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'STHeitiTC-Light', 'Microsoft YaHei', sans-serif;
             position: relative;
         }
 
-        /* 背景微光与心形容器 */
-        .hearts-container {
+        /* 景深效果，让背景更有层次感 */
+        body::after {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
             pointer-events: none;
             z-index: 1;
         }
 
-        /* 居中核心卡片 */
+        /* 核心告白卡片：升级为磨砂玻璃质感 */
         .center-card {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 30px 25px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.5); /* 更透明 */
+            backdrop-filter: blur(15px); /* 更强模糊 */
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 30px;
+            border-radius: 30px; /* 更圆润 */
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(166, 193, 238, 0.4);
             z-index: 10;
             width: 85%;
-            max-width: 360px;
+            max-width: 380px;
             border: 1px solid rgba(255, 255, 255, 0.6);
-            animation: pulseCard 3s infinite ease-in-out;
+            transition: all 0.3s ease;
         }
 
         .center-card h1 {
-            color: #ff4d6d;
-            font-size: 24px;
-            margin-bottom: 12px;
+            color: #ff6b81;
+            font-size: 26px;
+            margin-bottom: 20px;
             font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(255,107,129,0.2);
         }
 
         .center-card p {
-            color: #555;
-            font-size: 15px;
-            line-height: 1.6;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: 300;
         }
 
         .heart-icon {
             display: inline-block;
             color: #ff4d6d;
-            animation: beat 1s infinite alternate;
+            font-size: 30px;
+            margin-bottom: 5px;
+            animation: heartBeat 1.5s infinite;
         }
 
-        /* 漂浮弹幕样式 */
+        /* 底部增加一个小小的专属签名 */
+        .signature {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            letter-spacing: 1px;
+        }
+
+        /* 漂浮弹幕升级：增加发光效果和更柔和的动画 */
         .floating-text {
             position: absolute;
             white-space: nowrap;
-            font-weight: 600;
+            font-weight: 400;
             pointer-events: none;
             z-index: 2;
             opacity: 0;
-            animation: floatUp 6s linear forwards;
-            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+            animation: floatingUp 8s ease-in-out forwards; /* 更慢更柔和 */
+            letter-spacing: 1px;
+        }
+
+        /* 唯美樱花雨效果 */
+        .petal {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+            z-index: 1;
+            animation: petalRain linear infinite;
         }
 
         /* 动画定义 */
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0.8);
-                opacity: 0;
-            }
-            15% {
-                opacity: 0.9;
-            }
-            85% {
-                opacity: 0.9;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1.1);
-                opacity: 0;
-            }
+        @keyframes floatingUp {
+            0% { transform: translateY(105vh) translateX(0) scale(0.9); opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-15vh) translateX(10px) scale(1.05); opacity: 0; }
         }
 
-        @keyframes beat {
+        @keyframes heartBeat {
             0% { transform: scale(1); }
-            100% { transform: scale(1.3); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            60% { transform: scale(1); }
         }
 
-        @keyframes pulseCard {
-            0% { box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15); }
-            50% { box-shadow: 0 15px 40px rgba(255, 77, 109, 0.35); }
-            100% { box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15); }
+        @keyframes petalRain {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
+
     </style>
 </head>
 <body>
 
-    <div class="hearts-container" id="heartsContainer"></div>
+    <div id="petalContainer"></div>
 
     <div class="center-card">
-        <h1>致 周晶晶 <span class="heart-icon">❤️</span></h1>
+        <div class="heart-icon">❤</div>
+        <h1>For 周晶晶</h1>
         <p>
-            世间万物皆是过客，<br>
-            唯有你，是我毫无保留的偏爱与例外。<br>
-            满天星辰不及你，<br>
-            每天的喜欢都比昨天多一点。
+            从遇见你的那一刻起，<br>
+            我就知道自己无处可逃。<br>
+            世间的例外很少，<br>
+            而你，占据了所有的偏爱。
         </p>
     </div>
 
+    <div class="signature">Forever Your Exception</div>
+
     <script>
-        // 满屏浮现的文本内容
+        // 升级版：更高级、更深情的文本内容
         const words = [
-            "周晶晶，我的偏爱全给你",
+            "晶晶，你是我的无可替代 ❤️",
             "满心欢喜，只因有你",
-            "对周晶晶的喜欢已超载 ✨",
-            "你是我的无可替代",
-            "周晶晶最棒了！",
+            "遇见你，是我最大的幸运 ✨",
+            "你是我的例外与偏心",
             "目光所至，全都是你",
-            "我的例外与偏心",
-            "超级超级喜欢周晶晶",
-            "星河灿烂，你是最美的那颗",
-            "周晶晶要天天开心 🌸",
+            "周晶晶，我会一直都在 💌",
+            "所有浪漫，都属于你",
+            "我的心，只为你跳动",
+            "周晶晶，我们要一起走很久",
+            "想把最好的都给你",
             "始于心动，终于白首",
-            "宇宙浩瀚，唯偏爱周晶晶",
-            "周晶晶，今天也想你啦",
-            "独一无二的周晶晶",
-            "所有浪漫，都属于你 💌"
+            "周晶晶，今天也超级喜欢你",
+            "你是最闪耀的那颗星 ✨",
+            "我的未来里，一定要有你",
+            "对你的喜欢，藏都藏不住"
         ];
 
-        // 随机颜色
+        // 柔和的莫兰迪色系加高亮色
         const colors = [
-            "#ff4d6d", "#ff758f", "#ff8fa3", "#c77dff", 
-            "#e0aaff", "#ff5d8f", "#ff9e00", "#ffffff"
+            "#ff6b81", "#845ef7", "#5c7cfa", "#22b8cf", 
+            "#20c997", "#fab005", "#fd7e14", "#ffffff"
         ];
 
+        // 1. 生成漂浮文字
         function createFloatingText() {
             const el = document.createElement("div");
             el.className = "floating-text";
             
-            // 随机内容
-            el.innerText = words[Math.floor(Math.random() * words.length)];
+            // 随机内容和发光效果
+            const text = words[Math.floor(Math.random() * words.length)];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            el.innerText = text;
+            el.style.color = color;
+            el.style.textShadow = `0 0 10px ${color}80, 0 0 20px ${color}40`; // 文字发光
             
-            // 随机水平位置（保留一定边缘，防溢出）
-            const x = Math.random() * (window.innerWidth - 180);
-            el.style.left = `${Math.max(10, x)}px`;
-            
-            // 随机颜色与字体大小
-            el.style.color = colors[Math.floor(Math.random() * colors.length)];
-            el.style.fontSize = `${Math.floor(Math.random() * 8 + 14)}px`;
+            // 随机位置和大小
+            const x = Math.random() * (window.innerWidth - 220);
+            el.style.left = `${Math.max(15, x)}px`;
+            el.style.fontSize = `${Math.floor(Math.random() * 4 + 15)}px`; // 稍微调大一点点
             
             // 随机动画时长
-            const duration = Math.random() * 3 + 5; // 5-8秒
+            const duration = Math.random() * 4 + 7; // 7-11秒，更慢
             el.style.animationDuration = `${duration}s`;
 
             document.body.appendChild(el);
 
-            // 动画结束后移除 DOM 元素
             setTimeout(() => {
                 el.remove();
             }, duration * 1000);
         }
 
-        // 定时生成漂浮文字（密度控制）
-        setInterval(createFloatingText, 400);
+        // 2. 生成唯美花瓣雨
+        function createPetal() {
+            const container = document.getElementById('petalContainer');
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            // 随机大小、位置、花瓣形状（轻微变化）
+            const size = Math.random() * 7 + 6 + 'px';
+            petal.style.width = size;
+            petal.style.height = size;
+            petal.style.left = Math.random() * window.innerWidth + 'px';
+            
+            // 随机粉色调
+            const pinkShades = ['#fff1eb', '#ffd1dc', '#ffb6c1', '#ffa07a'];
+            petal.style.background = pinkShades[Math.floor(Math.random() * pinkShades.length)];
+            
+            // 随机动画时长
+            const duration = Math.random() * 5 + 8; // 8-13秒
+            petal.style.animationDuration = `${duration}s`;
 
-        // 初始填充几条
-        for (let i = 0; i < 5; i++) {
-            setTimeout(createFloatingText, i * 200);
+            container.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, duration * 1000);
         }
+
+        // 定时生成，控制密度
+        setInterval(createFloatingText, 600); // 弹幕密度
+        setInterval(createPetal, 300); // 花瓣密度
+
+        // 初始填充
+        for (let i = 0; i < 4; i++) setTimeout(createFloatingText, i * 200);
+        for (let i = 0; i < 10; i++) setTimeout(createPetal, i * 100);
+
     </script>
 </body>
 </html>
