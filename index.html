@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给周晶晶的专属浪漫 ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            position: relative;
+        }
+
+        /* 背景微光与心形容器 */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 居中核心卡片 */
+        .center-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            width: 85%;
+            max-width: 360px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            animation: pulseCard 3s infinite ease-in-out;
+        }
+
+        .center-card h1 {
+            color: #ff4d6d;
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .center-card p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .heart-icon {
+            display: inline-block;
+            color: #ff4d6d;
+            animation: beat 1s infinite alternate;
+        }
+
+        /* 漂浮弹幕样式 */
+        .floating-text {
+            position: absolute;
+            white-space: nowrap;
+            font-weight: 600;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            animation: floatUp 6s linear forwards;
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* 动画定义 */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.9;
+            }
+            85% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.3); }
+        }
+
+        @keyframes pulseCard {
+            0% { box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15); }
+            50% { box-shadow: 0 15px 40px rgba(255, 77, 109, 0.35); }
+            100% { box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <div class="center-card">
+        <h1>致 周晶晶 <span class="heart-icon">❤️</span></h1>
+        <p>
+            世间万物皆是过客，<br>
+            唯有你，是我毫无保留的偏爱与例外。<br>
+            满天星辰不及你，<br>
+            每天的喜欢都比昨天多一点。
+        </p>
+    </div>
+
+    <script>
+        // 满屏浮现的文本内容
+        const words = [
+            "周晶晶，我的偏爱全给你",
+            "满心欢喜，只因有你",
+            "对周晶晶的喜欢已超载 ✨",
+            "你是我的无可替代",
+            "周晶晶最棒了！",
+            "目光所至，全都是你",
+            "我的例外与偏心",
+            "超级超级喜欢周晶晶",
+            "星河灿烂，你是最美的那颗",
+            "周晶晶要天天开心 🌸",
+            "始于心动，终于白首",
+            "宇宙浩瀚，唯偏爱周晶晶",
+            "周晶晶，今天也想你啦",
+            "独一无二的周晶晶",
+            "所有浪漫，都属于你 💌"
+        ];
+
+        // 随机颜色
+        const colors = [
+            "#ff4d6d", "#ff758f", "#ff8fa3", "#c77dff", 
+            "#e0aaff", "#ff5d8f", "#ff9e00", "#ffffff"
+        ];
+
+        function createFloatingText() {
+            const el = document.createElement("div");
+            el.className = "floating-text";
+            
+            // 随机内容
+            el.innerText = words[Math.floor(Math.random() * words.length)];
+            
+            // 随机水平位置（保留一定边缘，防溢出）
+            const x = Math.random() * (window.innerWidth - 180);
+            el.style.left = `${Math.max(10, x)}px`;
+            
+            // 随机颜色与字体大小
+            el.style.color = colors[Math.floor(Math.random() * colors.length)];
+            el.style.fontSize = `${Math.floor(Math.random() * 8 + 14)}px`;
+            
+            // 随机动画时长
+            const duration = Math.random() * 3 + 5; // 5-8秒
+            el.style.animationDuration = `${duration}s`;
+
+            document.body.appendChild(el);
+
+            // 动画结束后移除 DOM 元素
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
+        }
+
+        // 定时生成漂浮文字（密度控制）
+        setInterval(createFloatingText, 400);
+
+        // 初始填充几条
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createFloatingText, i * 200);
+        }
+    </script>
+</body>
+</html>
